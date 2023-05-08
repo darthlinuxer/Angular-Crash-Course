@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">
+        Child Component
+      </div>
+      <div class="card-body">
+        <h5 class="card-title" style="color:red">{{ childData }}</h5>
+        <p class="card-text">
+            When send Event button is clicked, an event with a string will be emited!            
+        </p>
+        <p>Currently counter that will be sent if button SendEvent is clicked: {{count}}</p>
+        <button class="btn btn-secondary" (click)="sendEvent()">Send Event</button>
+      </div>
+</div>
+
+
+
+

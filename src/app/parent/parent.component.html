@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header">
+        Parent Component
+    </div>
+    <div class="card-body">
+        <h5 *ngIf="parentData; else othertitle" class="card-title">Title from OutputProperty Event in Child:
+            {{parentData}} </h5>
+        <ng-template #othertitle>
+            <span style="color: red">Awaiting Title to be received as Output property event from Child</span>
+        </ng-template>
+        <p>Parent will send a text (marked as red and bold) to Child and will receive back a text
+            from Child when the SendEvent button is clicked
+        </p>
+        <input [(ngModel)]="data" type="text" placeholder="Type anything to be passed to child automatically" size="40">
+        <app-child class="card-text" 
+            (childEventToParent)="handleChildEvent($event)" 
+            [childData]="data">
+        </app-child>
+        
+    </div>
+</div>

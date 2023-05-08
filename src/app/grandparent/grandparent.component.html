@@ -1,0 +1,20 @@
+<div [ngClass]="isSubscribed ? 'card border-success' : 'card border border-danger'" >
+    <div class="card-header">
+        <span style="font-weight: bold;">GrandParent Component</span>
+    </div>
+    <div class="card-body">
+        <h5 *ngIf="title; else othertitle" class="card-title"> Title from Notification Service: {{title}}</h5>
+        <ng-template #othertitle>
+            <span *ngIf="isSubscribed" style="color: red">Awaiting Title to be received from Notification Service
+            </span></ng-template>
+        <p *ngIf="isSubscribed; else unsubscribed">GrandParent is subscribed to Notification Service!</p>
+        <ng-template #unsubscribed><p>GrandParent is unsubscribed to Notification Service!</p></ng-template>
+        <app-parent class="card-text"></app-parent>
+        <br>
+        <div class="btn-group" role="group" aria-label="Commands">
+            <button class="btn btn-secondary" (click)="ResetCounter()">Reset Counter</button>
+            <button class="btn btn-secondary" (click)="UnSubscribeToNotification()">Unsubscribe to Notification</button>
+            <button class="btn btn-secondary" (click)="SubscribeToNotification()">Subscribe to Notification</button>
+        </div>
+    </div>
+</div>
