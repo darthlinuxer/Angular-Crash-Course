@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SignalRCrud</name>
+    </assembly>
+    <members>
+        <member name="T:Controllers.UserController">
+            <summary>
+            User Controller
+            </summary>
+        </member>
+        <member name="M:Controllers.UserController.#ctor(Model.UserContext,Microsoft.AspNetCore.SignalR.IHubContext{Controllers.UserHub})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="context"></param>
+            <param name="signalRcontext"></param>
+        </member>
+        <member name="M:Controllers.UserController.GetUsers">
+            <summary>
+            Get All Users
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Controllers.UserController.GetUser(System.Int32)">
+            <summary>
+            Get User with Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Controllers.UserController.PutUser(System.Int32,Model.User)">
+            <summary>
+            Update user 
+            </summary>
+            <param name="id"></param>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Controllers.UserController.PostUser(Model.User)">
+            <summary>
+            Create User
+            </summary>
+            <param name="user"></param>
+            <returns>User</returns>
+        </member>
+        <member name="M:Controllers.UserController.DeleteUser(System.Int32)">
+            <summary>
+            Delete User
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

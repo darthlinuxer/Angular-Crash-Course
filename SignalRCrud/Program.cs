@@ -16,6 +16,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    var filePath = Path.Combine(AppContext.BaseDirectory, "SignalRCrud.xml");
+    c.IncludeXmlComments(filePath);
 });
 builder.Services.AddCors(options =>
 {
@@ -27,7 +29,6 @@ builder.Services.AddCors(options =>
           .AllowCredentials();
    });
 });
-
 
 var app = builder.Build();
 
