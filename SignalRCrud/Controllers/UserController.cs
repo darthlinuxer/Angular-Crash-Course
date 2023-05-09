@@ -117,6 +117,7 @@ public class UserController : ControllerBase
         var user = await _context.Users.FindAsync(id);
         if (user == null)
         {
+            Console.WriteLine($"User with id {id} not found");
             return NotFound();
         }
 
