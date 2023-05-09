@@ -9,6 +9,8 @@ import { GrandparentComponent } from './grandparent/grandparent.component';
 import { NotificationService } from './services/notification.service';
 import { FormsModule } from '@angular/forms';
 import { DynamictableComponent } from './dynamictable/dynamictable.component';
+import { SignalRService } from './services/signalr.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,10 @@ import { DynamictableComponent } from './dynamictable/dynamictable.component';
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [NotificationService],
+  providers: [NotificationService, SignalRService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

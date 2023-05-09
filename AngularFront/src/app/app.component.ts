@@ -15,10 +15,8 @@ export class AppComponent {
 
     if (this.menuOpen) {
       this.sidebarWrapper.nativeElement.style.width = '250px';
-      this.pageContentWrapper.nativeElement.classList.add('menu-show');
     } else {
       this.sidebarWrapper.nativeElement.style.width = '0';
-      this.pageContentWrapper.nativeElement.classList.remove('menu-show');
     }
   }
 
