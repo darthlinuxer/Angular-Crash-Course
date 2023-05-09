@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../services/signalr.service';
 import { User } from '../models/user';
+import { HttpService } from '../services/http.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dynamictable',
@@ -9,31 +11,34 @@ import { User } from '../models/user';
 })
 export class DynamictableComponent implements OnInit, AfterViewInit {
 
-  data!: User[] | undefined;
+  data!: Observable<User[]> | undefined;
 
-  constructor(private signalR: SignalRService) {
+  constructor(
+    private signalR: SignalRService,
+    private http: HttpService) {
   
   }
 
   ngOnInit(){
-    this.signalR.connection.on("Users", c=>
+    this.signalR.userHubConn.on("Users", c=>
     this.data = c);
   }
+  
   ngAfterViewInit(): void {
-    this.signalR.connection.start().then(() => {      
+    this.signalR.userHubConn.start().then(() => {      
       this.fetchData();
     });
   }
 
   fetchData() {
-    this.signalR.connection.invoke("GetUsers");
+    this.data = this.http.get<User[]>("user");
   }
 
   // CRUD functions go here
   edit(item: any) { }
 
   delete(user: User) {
-    this.signalR.connection.invoke("DeleteUser",user.id);
+    this.signalR.userHubConn.invoke("DeleteUser",user.id);
    }
 
 }
