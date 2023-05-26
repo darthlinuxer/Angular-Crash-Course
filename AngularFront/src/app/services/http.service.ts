@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError, pipe } from 'rxjs';
+import { Observable, map, throwError, pipe, firstValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Injectable({
@@ -15,40 +15,32 @@ export class HttpService {
 
   constructor(private client: HttpClient) { }
 
-  public get<T>(route: string): Observable<T> {
-    return this.client.get<T>(`${this.apiUrl}/${route}`).pipe
-      (
-        map(data => {
-          console.log("Data received:", data);
-          return data
-        }
-        ),
-        catchError(error => {
-          // handle error
-          return throwError(() => new Error(error));
-        })
-      );
+  public async get<T>(route: string): Promise<T> {
+    try{
+      const result = await firstValueFrom(this.client.get<T>(`${this.apiUrl}/${route}`));
+      return result;
+    }catch (error:any){
+      throw new Error(error);
+    }
+    
   }
 
-  public getwithId<T>(route: string, id: string): Observable<T> {
-    return this.client.get<T>(`${this.apiUrl}/${route}/${id}`).pipe
-      (
-        map(data => {
-          console.log("Data received:", data);
-          return data
-        }
-        ),
-        catchError(error => {
-          // handle error
-          return throwError(() => new Error(error));
-        })
-      );
+  public async getwithId<T>(route: string, id: string): Promise<T|undefined> {
+    try {
+      const data = await this.client.get<T>(`${this.apiUrl}/${route}/${id}`).toPromise();
+      console.log("Data received:", data);
+      return data;
+    } catch (error:any) {
+      // Handle error
+      throw new Error(error);
+    }
   }
 
-  public delete(route: string, id: string) {
+  public async delete(route: string, id: string):Promise<any> {
     let fullroute = `${this.apiUrl}/${route}/${id}`;
     console.log("Delete fullroute: ", fullroute);
-    this.client.delete(fullroute, {headers: this.headers});
+    var result = await firstValueFrom(this.client.delete(fullroute, { headers: this.headers }));
+    return result;
   }
 
   public update<T>(route: string, element: T, id: string) {
@@ -64,7 +56,13 @@ export class HttpService {
     );
   }
 
-  public create<T>(route: string, element: T): Observable<Object> {
-    return this.client.post(`${this.apiUrl}/${route}`, element, { headers: this.headers });
+  public async create<T>(route: string, element: T): Promise<Object> {
+    try{
+      const response = await firstValueFrom(this.client.post(`${this.apiUrl}/${route}`, element, { headers: this.headers }));
+      return response;
+    } catch (error:any){
+      throw new Error(error);
+    }
+    
   }
 }

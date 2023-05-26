@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../services/signalr.service';
 import { User } from '../models/user';
 import { HttpService } from '../services/http.service';
-import { Observable, concat, map, scan } from 'rxjs';
+import { BehaviorSubject, Observable, Subscribable, Subscription, concat, map, of, scan } from 'rxjs';
 
 @Component({
   selector: 'app-dynamictable',
@@ -11,7 +11,7 @@ import { Observable, concat, map, scan } from 'rxjs';
 })
 export class DynamictableComponent implements OnInit, AfterViewInit {
 
-  data!: Observable<User[]> | undefined;
+  data$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
 
   constructor(
     private signalR: SignalRService,
@@ -20,25 +20,28 @@ export class DynamictableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.signalR.userHubConn.on("UserAdded", (newUser:User) => {
-      this.data = this.data!.pipe(
-        map((users: User[]) => [...users, newUser])
-      )});
-      this.signalR.userHubConn.on("UserDeleted", (deletedUser:User) => {
-        this.data = this.data!.pipe(
-          map((users: User[]) => users.filter(user => user.id !== deletedUser.id))
-        )});
-        this.signalR.userHubConn.on("UserUpdated", (updatedUser:User) => {
-          this.data = this.data!.pipe(
-            map((users: User[]) => users.map(user => {
-              if (user.id === updatedUser.id) {
-                return updatedUser;
-              } else {
-                return user;
-              }
-            }))
-          );
-        });
+    this.signalR.userHubConn.on("UserAdded", (newUser: User) => {
+      console.log("NewUser:", newUser);
+      const currentUsers = this.data$.getValue();
+      const users = [...currentUsers, newUser];
+      this.data$.next(users)
+    });
+    this.signalR.userHubConn.on("UserDeleted", (deletedUser: User) => {
+      console.log("DeletedUser", deletedUser);
+      const currentUsers = this.data$.getValue();
+      const users = currentUsers.filter(c => c.id !== deletedUser.id);
+      this.data$.next(users);
+
+    });
+    this.signalR.userHubConn.on("UserUpdated", (updatedUser: User) => {
+      console.log("UpdatedUser", User);
+      let currentUsers = this.data$.getValue();
+      const index = currentUsers.findIndex(user => user.id == updatedUser.id);
+      if (index !== -1) {
+        currentUsers[index] = updatedUser;
+        this.data$.next(currentUsers);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -48,15 +51,20 @@ export class DynamictableComponent implements OnInit, AfterViewInit {
   }
 
   fetchData() {
-    this.data = this.http.get<User[]>("user");
+    this.http.get<User[]>("user").then((users: User[]) => this.data$.next(users));
+  }
+
+  OnDestroy() {
   }
 
   // CRUD functions go here
-  edit(item: any) { }
+  edit(user: User) { 
+    console.log("User to be Edited", user);
+  }
 
   delete(user: User) {
     console.log("Delete button pressed!");
-    this.http.delete("user",user.id.toString())
+    this.http.delete("user", user.id.toString())
   }
 
 }
