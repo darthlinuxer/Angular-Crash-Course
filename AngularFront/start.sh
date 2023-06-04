@@ -1,1 +1,1 @@
-sudo docker run --rm -it --network host --hostname angular --name angular -v $(pwd):/home --workdir /home camilochaves/angular:13.3.5 ng serve
+sudo docker run --rm -it --network host --hostname angular --name angular -v $(pwd):/home --workdir /home camilochaves/angular:13.3.5 bash -c "npm i && ng serve"

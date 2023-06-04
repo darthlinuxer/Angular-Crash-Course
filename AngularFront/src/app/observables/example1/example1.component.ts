@@ -36,9 +36,9 @@ export class Example1Component implements OnInit, OnDestroy {
       }, 3000);
       setTimeout(() => {
         subscriber.complete();
-        console.log("Observer completed!")
+        console.log("Finite Observer has completed!")
       }, 4000);
-      return ()=>{console.log('Teardown')}
+      return ()=>{console.log('Finite Observable Teardown')}
     });
 
     this.streamOfName$ = interval(2000).pipe(
@@ -68,7 +68,7 @@ export class Example1Component implements OnInit, OnDestroy {
       {
         next: c => console.log(c),
         error: err => console.log(err),
-        complete: () => console.log("Observer has completed!")
+        complete: () => console.log("Infinite Observer has completed!")
       });
     console.log("Subscribed to Infinite Stream")
   }
