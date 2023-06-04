@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ChildComponent } from '../child/child.component';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { Subscription } from 'rxjs';
 import { ParentComponent } from '../parent/parent.component';

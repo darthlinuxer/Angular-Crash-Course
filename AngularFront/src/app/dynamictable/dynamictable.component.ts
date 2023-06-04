@@ -7,7 +7,8 @@ import { BehaviorSubject, Observable, Subscribable, Subscription, concat, map, o
 @Component({
   selector: 'app-dynamictable',
   templateUrl: './dynamictable.component.html',
-  styleUrls: ['./dynamictable.component.css']
+  styleUrls: ['./dynamictable.component.css'],
+  providers: [SignalRService, HttpService]
 })
 export class DynamictableComponent implements OnInit, AfterViewInit {
 

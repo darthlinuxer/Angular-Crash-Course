@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ParentComponent } from './parent/parent.component';
@@ -9,9 +8,8 @@ import { GrandparentComponent } from './grandparent/grandparent.component';
 import { NotificationService } from './services/notification.service';
 import { FormsModule } from '@angular/forms';
 import { DynamictableComponent } from './dynamictable/dynamictable.component';
-import { SignalRService } from './services/signalr.service';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpService } from './services/http.service';
+import { Example1Component } from './observables/example1/example1.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +17,8 @@ import { HttpService } from './services/http.service';
     ParentComponent,
     ChildComponent,
     GrandparentComponent,
-    DynamictableComponent
+    DynamictableComponent,
+    Example1Component
   ],
   imports: [
     FormsModule,
@@ -27,7 +26,7 @@ import { HttpService } from './services/http.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [NotificationService, SignalRService, HttpService],
+  providers: [NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
