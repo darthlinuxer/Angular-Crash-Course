@@ -6,15 +6,15 @@ import * as signalR from '@microsoft/signalr';
 })
 export class SignalRService {
   private apiUrl = 'http://localhost:5185';
-  public connection!: signalR.HubConnection;
+  public userHubConn!: signalR.HubConnection;
 
   constructor(
   ) {
-    this.connection = new signalR.HubConnectionBuilder()
+    this.userHubConn = new signalR.HubConnectionBuilder()
       .withUrl(this.apiUrl + '/userHub')
       .build();
 
-    this.connection.onclose(() => {
+    this.userHubConn.onclose(() => {
       console.log('SignalR connection closed');
     });
   }

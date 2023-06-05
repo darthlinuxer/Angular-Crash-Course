@@ -1,39 +1,71 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../services/signalr.service';
 import { User } from '../models/user';
+import { HttpService } from '../services/http.service';
+import { BehaviorSubject, Observable, Subscribable, Subscription, concat, map, of, scan } from 'rxjs';
 
 @Component({
   selector: 'app-dynamictable',
   templateUrl: './dynamictable.component.html',
-  styleUrls: ['./dynamictable.component.css']
+  styleUrls: ['./dynamictable.component.css'],
+  providers: [SignalRService, HttpService]
 })
 export class DynamictableComponent implements OnInit, AfterViewInit {
 
-  data!: User[] | undefined;
+  data$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
 
-  constructor(private signalR: SignalRService) {
-  
+  constructor(
+    private signalR: SignalRService,
+    private http: HttpService) {
+
   }
 
-  ngOnInit(){
-    this.signalR.connection.on("Users", c=>
-    this.data = c);
+  ngOnInit() {
+    this.signalR.userHubConn.on("UserAdded", (newUser: User) => {
+      console.log("NewUser:", newUser);
+      const currentUsers = this.data$.getValue();
+      const users = [...currentUsers, newUser];
+      this.data$.next(users)
+    });
+    this.signalR.userHubConn.on("UserDeleted", (deletedUser: User) => {
+      console.log("DeletedUser", deletedUser);
+      const currentUsers = this.data$.getValue();
+      const users = currentUsers.filter(c => c.id !== deletedUser.id);
+      this.data$.next(users);
+
+    });
+    this.signalR.userHubConn.on("UserUpdated", (updatedUser: User) => {
+      console.log("UpdatedUser", User);
+      let currentUsers = this.data$.getValue();
+      const index = currentUsers.findIndex(user => user.id == updatedUser.id);
+      if (index !== -1) {
+        currentUsers[index] = updatedUser;
+        this.data$.next(currentUsers);
+      }
+    });
   }
+
   ngAfterViewInit(): void {
-    this.signalR.connection.start().then(() => {      
+    this.signalR.userHubConn.start().then(() => {
       this.fetchData();
     });
   }
 
   fetchData() {
-    this.signalR.connection.invoke("GetUsers");
+    this.http.get<User[]>("user").then((users: User[]) => this.data$.next(users));
+  }
+
+  OnDestroy() {
   }
 
   // CRUD functions go here
-  edit(item: any) { }
+  edit(user: User) { 
+    console.log("User to be Edited", user);
+  }
 
   delete(user: User) {
-    this.signalR.connection.invoke("DeleteUser",user.id);
-   }
+    console.log("Delete button pressed!");
+    this.http.delete("user", user.id.toString())
+  }
 
 }
