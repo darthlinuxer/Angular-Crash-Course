@@ -65,6 +65,7 @@ export class Example1Component implements OnInit, OnDestroy {
     //   },[])
     // );
 
+    //way of combining 2 observables
     this.finiteObservable$ = zip(
       of("Aquaman","Superman","Ironman","Spiderman"),
       interval(1000),

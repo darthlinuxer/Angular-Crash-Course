@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { DynamictableComponent } from './dynamictable/dynamictable.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Example1Component } from './observables/example1/example1.component';
+import { HotobservableComponent } from './observables/hotobservable/hotobservable.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { Example1Component } from './observables/example1/example1.component';
     ChildComponent,
     GrandparentComponent,
     DynamictableComponent,
-    Example1Component
+    Example1Component,
+    HotobservableComponent
   ],
   imports: [
     FormsModule,

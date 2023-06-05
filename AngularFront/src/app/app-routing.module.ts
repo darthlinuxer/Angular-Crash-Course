@@ -5,6 +5,7 @@ import { ChildComponent } from './child/child.component';
 import { GrandparentComponent } from './grandparent/grandparent.component';
 import { DynamictableComponent } from './dynamictable/dynamictable.component';
 import { Example1Component } from './observables/example1/example1.component';
+import { HotobservableComponent } from './observables/hotobservable/hotobservable.component';
 
 const routes: Routes = [
   { path:'grandparent', component: GrandparentComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path:'child', component: ChildComponent},
   { path:"table", component: DynamictableComponent},
   { path:"simpleobservable", component: Example1Component},
+  { path:"canva", component: HotobservableComponent},
   { path: '**', redirectTo: '/grandparent' }
 ];
 
