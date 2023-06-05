@@ -4,4 +4,6 @@ AngularFront/node_modules
 node_modules
 SignalRCrud/obj
 SignalRCrud/bin
+**/obj/
+**/bin/
 
