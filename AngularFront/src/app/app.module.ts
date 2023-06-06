@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
@@ -9,8 +8,16 @@ import { NotificationService } from './services/notification.service';
 import { FormsModule } from '@angular/forms';
 import { DynamictableComponent } from './dynamictable/dynamictable.component';
 import { HttpClientModule } from '@angular/common/http';
-import { Example1Component } from './observables/example1/example1.component';
-import { HotobservableComponent } from './observables/hotobservable/hotobservable.component';
+import { ObservablesModule } from './observables/observables.module';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path:'grandparent', component: GrandparentComponent},
+  { path:'parent', component: ParentComponent},
+  { path:'child', component: ChildComponent},
+  { path:"table", component: DynamictableComponent},
+  { path: '**', redirectTo: '/grandparent' }
+];
 
 @NgModule({
   declarations: [
@@ -18,17 +25,17 @@ import { HotobservableComponent } from './observables/hotobservable/hotobservabl
     ParentComponent,
     ChildComponent,
     GrandparentComponent,
-    DynamictableComponent,
-    Example1Component,
-    HotobservableComponent
+    DynamictableComponent    
   ],
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ObservablesModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [NotificationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 export class AppModule { }

@@ -1,0 +1,29 @@
+<h2>What is an AsyncSubject and when is it used?</h2>
+
+<p>An AsyncSubject is a type of subject in RxJS, a reactive programming library. It acts as both an observable and an observer, and it only emits the last value (and optionally completes) to its subscribers when the subject is completed.</p>
+
+<p>The AsyncSubject has the following characteristics:</p>
+
+<ol>
+  <li>It waits until the source observable completes before emitting any values.</li>
+  <li>It remembers and emits only the last value emitted by the source observable.</li>
+  <li>If the source observable emits multiple values, only the last one will be emitted by the AsyncSubject.</li>
+  <li>If the AsyncSubject is completed without emitting any values, no values will be emitted to its subscribers.</li>
+  <li>Subscribers will receive the last emitted value (if any) immediately upon subscription, even if the completion has not occurred yet.</li>
+</ol>
+
+<p>You can use an AsyncSubject in scenarios where you are only interested in the final value of an asynchronous operation or when you need to ensure that all subscribers receive the same last value emitted by the source observable.</p>
+
+<p>Here are a few use cases for AsyncSubject:</p>
+
+<ol>
+  <li>Caching: You can use AsyncSubject to cache the result of an asynchronous operation. Subsequent subscribers will immediately receive the cached value when they subscribe, instead of triggering the operation again.</li>
+  <li>Event aggregation: If you have multiple event sources and you only want to handle the last event emitted by any source, you can use AsyncSubject to consolidate and emit only the last event.</li>
+  <li>Asynchronous operations with delayed completion: AsyncSubject is useful when you have an asynchronous operation that may emit multiple values over time but you are only interested in the final value.</li>
+</ol>
+
+<p>Keep in mind that using AsyncSubject requires careful handling to ensure that it is properly completed and that all necessary values are emitted.</p>
+
+<h1>Example</h1>
+<p>Hi {{asyncSubject$ | async}}</p>
+<p>Late Subscription receiving the last emitted value: {{message}}</p>
