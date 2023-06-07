@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Reactive Forms</h1>
+            <p>Reactive Forms is an approach for building forms in Angular that provides a more flexible and dynamic way
+                of managing form state and validation.</p>
+            <p>Key Concepts:</p>
+            <ul>
+                <li><strong>FormControl:</strong> Represents an individual form control, such as an input field. It
+                    tracks the value, validation state, and other properties of the form control.</li>
+                <li><strong>FormGroup:</strong> Represents a collection of form controls. It allows you to group related
+                    form controls together, making it easier to manage and validate them as a whole.</li>
+                <li><strong>FormBuilder:</strong> A helper service that simplifies the creation of FormControl and
+                    FormGroup instances.</li>
+                <li><strong>FormArray:</strong> Represents an array of form controls. It allows you to manage dynamic
+                    lists of form controls, such as multiple checkboxes or repeated input fields.</li>
+                <li><strong>Reactive Forms APIs:</strong> Provide methods and APIs to perform various operations such as
+                    subscribing to form control value changes, setting and getting form values programmatically,
+                    resetting form state, and more.</li>
+            </ul>
+            <p>Benefits of Reactive Forms:</p>
+            <ul>
+                <li><strong>Greater control:</strong> Reactive Forms offer more control and flexibility over form
+                    validation, allowing you to define complex validation rules and customize validation logic.</li>
+                <li><strong>Programmatic approach:</strong> Reactive Forms are managed programmatically, allowing you to
+                    leverage the power of TypeScript and reactive programming principles to handle form state and
+                    interactions.</li>
+                <li><strong>Unit testing:</strong> Reactive Forms can be easily unit tested as the form controls and
+                    their behaviors are defined in the component class, making it simpler to write test cases.</li>
+                <li><strong>Dynamic form structure:</strong> Reactive Forms support dynamic forms where form controls
+                    and groups can be added or removed dynamically based on user actions or other conditions.</li>
+                <li><strong>Better scalability:</strong> Reactive Forms are better suited for complex forms and
+                    large-scale applications, as they provide more control, extensibility, and maintainability.</li>
+            </ul>
+        </div>
+        <div class="col">
+            <h1>Example</h1>
+            <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" formControlName="email">
+                    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                        <div *ngIf="loginForm.get('email')?.hasError('required')" class="invalidData">Email is required
+                        </div>
+                        <div *ngIf="loginForm.get('email')?.hasError('email')" class="invalidData">Invalid email format
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" formControlName="password">
+                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                        <div *ngIf="loginForm.get('password')?.hasError('required')" class="invalidData">Password is
+                            required</div>
+                        <div *ngIf="loginForm.get('password')?.hasError('minlength')" class="invalidData">Password
+                            should have at least 8 characters</div>
+                    </div>
+                </div>
+
+                <button type="submit" [disabled]="loginForm.invalid">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

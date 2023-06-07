@@ -5,14 +5,15 @@
             aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
+            aria-labelledby="offcanvasNavbar2Label">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Menu</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3" >
+                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -34,7 +35,6 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="table">Dynamic Table with SignalR</a></li>
-                            <li><a class="dropdown-item" href="#">Table with API</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -47,10 +47,20 @@
                             <li><a class="dropdown-item" href="asyncsubject">Async Subject</a></li>
                             <li><a class="dropdown-item" href="replaysubject">Replay Subject</a></li>
                             <li><a class="dropdown-item" href="canva">Hot Observable Canva</a></li>
-                            <li><a class="dropdown-item" href="#">Hot vs Cold</a></li>
                         </ul>
-                    </li>                          
-                  
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Forms
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="drivenforms">Driven Forms</a></li>
+                            <li><a class="dropdown-item" href="reactiveforms">Reactive Forms</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="ngrx">NgRx</a></li>
+
                 </ul>
                 <form class="d-flex mt-3 mt-lg-0" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -1,0 +1,51 @@
+<h2>NgRx Overview</h2>
+<p>NgRx is a state management library for Angular applications inspired by Redux. It helps manage the complex state of an application by providing a predictable and centralized approach.</p>
+<h2>Common Uses of NgRx</h2>
+<ul>
+  <li>Managing application-wide state: NgRx is commonly used to handle shared data and state across components, ensuring consistency and synchronization.</li>
+  <li>Handling asynchronous operations: NgRx provides tools to manage asynchronous actions, such as making API calls, by utilizing effects and reducers.</li>
+  <li>Implementing complex data flows: NgRx enables the creation of clear and maintainable data flow patterns by separating concerns, reducing dependencies, and providing a unidirectional data flow.</li>
+  <li>Undo/redo functionality: NgRx can be leveraged to implement undo/redo functionality, allowing users to revert and restore application state.</li>
+</ul>
+<h2>Pros and Cons of NgRx</h2>
+<table>
+  <tr>
+    <th>Pros</th>
+    <th>Cons</th>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>Centralized state management: NgRx helps maintain a single source of truth, making it easier to reason about application state.</li>
+        <li>Predictable state changes: The use of actions and reducers in NgRx ensures that state changes are explicit and traceable.</li>
+        <li>Improved scalability: NgRx's structured approach facilitates scaling Angular applications by providing a clear separation of concerns.</li>
+        <li>Debugging and time travel: NgRx includes powerful tools like the Redux DevTools extension, allowing you to inspect and debug state changes, as well as travel back and forth in time.</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Learning curve: NgRx introduces additional complexity to an application, requiring developers to learn and understand its concepts and patterns.</li>
+        <li>Boilerplate code: NgRx can lead to more code compared to simpler state management approaches, which might increase development time.</li>
+        <li>Potential overuse: NgRx might not be necessary for smaller or simpler applications, and applying it unnecessarily can add unnecessary complexity.</li>
+        <li>Development overhead: NgRx requires developers to write and maintain additional code for actions, reducers, selectors, and effects.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    th,
+    td {
+        padding: 5px;
+    }
+</style>

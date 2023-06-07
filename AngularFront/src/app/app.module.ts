@@ -10,12 +10,15 @@ import { DynamictableComponent } from './dynamictable/dynamictable.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ObservablesModule } from './observables/observables.module';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomformsmoduleModule } from './customformsmodule/customformsmodule.module';
+import { NgrxComponent } from './ngrx/ngrx.component';
 
 const routes: Routes = [
   { path:'grandparent', component: GrandparentComponent},
   { path:'parent', component: ParentComponent},
   { path:'child', component: ChildComponent},
   { path:"table", component: DynamictableComponent},
+  { path:"ngrx", component: NgrxComponent},
   { path: '**', redirectTo: '/grandparent' }
 ];
 
@@ -25,13 +28,15 @@ const routes: Routes = [
     ParentComponent,
     ChildComponent,
     GrandparentComponent,
-    DynamictableComponent    
+    DynamictableComponent,
+    NgrxComponent    
   ],
   imports: [
     FormsModule,
     BrowserModule,
     HttpClientModule,
     ObservablesModule,
+    CustomformsmoduleModule,
     RouterModule.forRoot(routes)
   ],
   providers: [NotificationService],

@@ -1,0 +1,110 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Driven Forms</h1>
+            <p>Driven Forms, also known as Template-driven Forms, is an approach for implementing forms in HTML. In
+                Driven
+                Forms,
+                the form's state is primarily managed within the HTML template using directives and two-way data
+                binding.
+            </p>
+
+            <h2>How Driven Forms work:</h2>
+            <ol>
+                <li>
+                    <strong>Form Element:</strong> Start by enclosing your form controls within the
+                    <code>&lt;form&gt;</code>
+                    element. This element serves as a container for your form.
+                </li>
+                <li>
+                    <strong>Form Controls:</strong> Inside the <code>&lt;form&gt;</code> element, add various form
+                    controls
+                    such as
+                    text inputs, checkboxes, radio buttons, select boxes, and more. Each form control should have a
+                    unique
+                    identifier using the <code>id</code> attribute.
+                </li>
+                <li>
+                    <strong>Data Binding:</strong> Use the <code>[(ngModel)]</code> directive to bind the value of a
+                    form
+                    control to
+                    a property in your component. This enables two-way data binding, meaning changes in the form control
+                    update the
+                    component property, and changes to the component property update the form control.
+                </li>
+                <li>
+                    <strong>Validation:</strong> Apply basic validation to form controls using HTML attributes. For
+                    example,
+                    use the
+                    <code>required</code> attribute to make a field mandatory, <code>minlength</code> and
+                    <code>maxlength</code>
+                    attributes to set length constraints, and <code>pattern</code> attribute to enforce a specific
+                    pattern.
+                    These
+                    attributes can be added to the corresponding form control.
+                </li>
+                <li>
+                    <strong>Form Submission:</strong> To handle form submission, use the <code>(ngSubmit)</code> event
+                    on
+                    the
+                    <code>&lt;form&gt;</code> element. This event should be bound to a method in your component that
+                    handles
+                    the
+                    form submission logic.
+                </li>
+                <li>
+                    <strong>Form Validation and State:</strong> Driven Forms automatically track the state of form
+                    controls,
+                    such as
+                    whether they are touched, dirty, or valid. You can use this information to display validation
+                    messages
+                    or
+                    control the form's behavior.
+                </li>
+                <li>
+                    <strong>Form Submission Button:</strong> Add a submit button inside the <code>&lt;form&gt;</code>
+                    element, which
+                    users can click to submit the form. You can conditionally disable the button based on the form's
+                    validity using
+                    the <code>[disabled]</code> attribute.
+                </li>
+            </ol>
+
+            <p>Driven Forms provide a straightforward way to implement forms in HTML using Angular's built-in directives
+                and
+                two-way
+                data binding. While they are suitable for simple forms with basic validation requirements, for more
+                complex
+                forms,
+                Reactive Forms offer greater flexibility and control over form validation and behavior.</p>
+
+        </div>
+        <div class="col">
+            <h1>Example</h1>
+            <form (ngSubmit)="submitForm()" #loginForm="ngForm">
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" [(ngModel)]="user['email']" required email>
+                    <div
+                        *ngIf="loginForm.controls['email']?.errors?.['required'] && loginForm.controls['email']?.touched">
+                        <span style="color:red">Email is required</span></div>
+                    <div *ngIf="loginForm.controls['email']?.errors?.['email'] && loginForm.controls['email']?.touched">
+                        <span style="color:red">Invalid email format</span></div>
+                </div>
+
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" [(ngModel)]="user['password']" required
+                        minlength="8">
+                    <div
+                        *ngIf="loginForm.controls['password']?.errors?.['required'] && loginForm.controls['password']?.touched">
+                        <span style="color:red">Password is required</span></div>
+                    <div
+                        *ngIf="loginForm.controls['password']?.errors?.['minlength'] && loginForm.controls['password']?.touched">
+                        <span style="color:red">Password should have at least 8 characters</span></div>
+                </div>
+                <button type="submit" [disabled]="!loginForm.valid">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
