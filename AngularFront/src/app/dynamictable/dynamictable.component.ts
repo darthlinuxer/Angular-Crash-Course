@@ -59,7 +59,7 @@ export class DynamictableComponent implements OnInit, AfterViewInit {
   }
 
   // CRUD functions go here
-  edit(user: User) { 
+  edit(user: User) {
     console.log("User to be Edited", user);
   }
 

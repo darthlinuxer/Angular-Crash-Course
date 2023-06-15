@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, throwError, pipe, firstValueFrom } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-  private apiUrl = 'http://localhost:5185/api';
+  private apiUrl = 'http://localhost:5182';
   // The HTTP options for the requests
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
@@ -16,27 +16,27 @@ export class HttpService {
   constructor(private client: HttpClient) { }
 
   public async get<T>(route: string): Promise<T> {
-    try{
+    try {
       const result = await firstValueFrom(this.client.get<T>(`${this.apiUrl}/${route}`));
       return result;
-    }catch (error:any){
+    } catch (error: any) {
       throw new Error(error);
     }
-    
+
   }
 
-  public async getwithId<T>(route: string, id: string): Promise<T|undefined> {
+  public async getwithId<T>(route: string, id: string): Promise<T | undefined> {
     try {
       const data = await this.client.get<T>(`${this.apiUrl}/${route}/${id}`).toPromise();
       console.log("Data received:", data);
       return data;
-    } catch (error:any) {
+    } catch (error: any) {
       // Handle error
       throw new Error(error);
     }
   }
 
-  public async delete(route: string, id: string):Promise<any> {
+  public async delete(route: string, id: string): Promise<any> {
     let fullroute = `${this.apiUrl}/${route}/${id}`;
     console.log("Delete fullroute: ", fullroute);
     var result = await firstValueFrom(this.client.delete(fullroute, { headers: this.headers }));
@@ -57,12 +57,28 @@ export class HttpService {
   }
 
   public async create<T>(route: string, element: T): Promise<Object> {
-    try{
+    try {
       const response = await firstValueFrom(this.client.post(`${this.apiUrl}/${route}`, element, { headers: this.headers }));
       return response;
-    } catch (error:any){
+    } catch (error: any) {
       throw new Error(error);
     }
-    
   }
+
+  public post(
+    route: string,
+    element: any,
+    type: any = 'json',
+    observe: any = 'body',
+    reportProgress: boolean = false): Observable<any> {
+
+    return this.client.post(`${this.apiUrl}/${route}`, element,
+      {
+        headers: this.headers,
+        observe: observe,
+        responseType: type,
+        reportProgress: reportProgress
+      });
+  }
+
 }

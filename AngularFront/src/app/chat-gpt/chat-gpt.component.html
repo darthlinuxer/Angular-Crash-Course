@@ -1,0 +1,13 @@
+<h1>ChatGPT Prompt</h1>
+<div class="form-group row">
+    <label for="inputText" class="col-sm-2 col-form-label">Prompt</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputText" [(ngModel)]="prompt">
+    </div>        
+  </div>
+  <button type="button" (click)="SubmitHttp()" class="btn btn-primary">Http Rest</button>
+  <button type="button" (click)="SubmitSignalR()" class="btn btn-primary">SignalR</button>
+  <button type="button" (click)="SubmitHttpReceiveStream()" class="btn btn-secondary">SignalR Stream</button>  
+  <br/><br/>
+  <textarea class="form-control" [value]="data$ | async"></textarea>
+

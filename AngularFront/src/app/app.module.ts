@@ -12,6 +12,7 @@ import { ObservablesModule } from './observables/observables.module';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomformsmoduleModule } from './customformsmodule/customformsmodule.module';
 import { NgrxComponent } from './ngrx/ngrx.component';
+import { ChatGptComponent } from './chat-gpt/chat-gpt.component';
 
 const routes: Routes = [
   { path:'grandparent', component: GrandparentComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path:'child', component: ChildComponent},
   { path:"table", component: DynamictableComponent},
   { path:"ngrx", component: NgrxComponent},
+  { path:"chatgpt", component: ChatGptComponent},
   { path: '**', redirectTo: '/grandparent' }
 ];
 
@@ -29,7 +31,8 @@ const routes: Routes = [
     ChildComponent,
     GrandparentComponent,
     DynamictableComponent,
-    NgrxComponent    
+    NgrxComponent,
+    ChatGptComponent    
   ],
   imports: [
     FormsModule,
