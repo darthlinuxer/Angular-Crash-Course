@@ -4,6 +4,55 @@
         <name>SignalRCrud</name>
     </assembly>
     <members>
+        <member name="T:Controllers.ChatGPTController">
+            <summary>
+            Controller to call ChatGPT API via REST
+            </summary>
+        </member>
+        <member name="M:Controllers.ChatGPTController.#ctor(System.Net.Http.IHttpClientFactory)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="factory"></param>
+        </member>
+        <member name="M:Controllers.ChatGPTController.SimpleReply(System.String,System.String,System.Int32)">
+            <summary>
+            To be used for a single question and a single response
+            </summary>
+            <param name="prompt"></param>
+            <param name="model"></param>
+            <param name="max_tokens"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Controllers.ChatGPTController.Completions(Models.Completion)">
+            <summary>
+            https://platform.openai.com/docs/api-reference/completions/create
+            Completions are conversations with history
+            Check Examples on Swagger
+            </summary>
+            <param name="completion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Controllers.ChatGPTController.CreateImage(Models.Image)">
+            <summary>
+            https://platform.openai.com/docs/api-reference/images
+            </summary>
+            <param name="image"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Controllers.ChatGPTController.GetModels">
+            <summary>
+            Get all openAI models
+            </summary>
+            <returns>List of OpenAI Models</returns> 
+        </member>
+        <member name="M:Controllers.ChatGPTController.GetModel(System.String)">
+            <summary>
+            Get Info about a Single OpenAPI model
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="T:Controllers.UserController">
             <summary>
             User Controller
@@ -50,6 +99,129 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
+        </member>
+        <member name="T:Controllers.ChatGPTHub">
+            <summary>
+            ChatGPTSignalR Hub
+            </summary>
+        </member>
+        <member name="M:Controllers.ChatGPTHub.#ctor(Controllers.ChatGPTController,System.Net.Http.IHttpClientFactory)">
+            <summary>
+            ChatGPT SignalR Hub
+            </summary>
+            <param name="controller"></param>
+            <param name="factory"></param>
+        </member>
+        <member name="M:Controllers.ChatGPTHub.SendMessage(System.String,System.String,System.Int32)">
+            <summary>
+            Simple SignalR question example
+            </summary>
+            <param name="prompt"></param>
+            <param name="model"></param>
+            <param name="max_tokens"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Controllers.ChatGPTHub.SendStreamedMessage(Models.Completion)">
+            <summary>
+            Send a completion object and receive back a stream of data
+            </summary>
+            <param name="completion"></param>
+            <returns></returns> 
+        </member>
+        <member name="T:Models.Completion">
+            <summary>
+            Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position. Creates a completion for the provided prompt and parameters.
+            </summary>
+        </member>
+        <member name="P:Models.Completion.Model">
+            <summary>
+            ID of the model to use. You can use the List models API to see all of your available models, or see our Model overview for descriptions of them.
+            </summary>
+            <value>gpt-3.5-turbo</value>
+        </member>
+        <member name="P:Models.Completion.Messages">
+            <summary>
+            A list of messages describing the conversation so far.
+            </summary>
+            <typeparam name="Message"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:Models.Completion.Temperature">
+            <summary>
+            What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+            </summary>
+            <value>1</value>
+        </member>
+        <member name="P:Models.Completion.Top_p">
+            <summary>
+            An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or temperature but not both.
+            </summary>
+            <value>1</value>
+        </member>
+        <member name="P:Models.Completion.N">
+            <summary>
+            How many completions to generate for each prompt.Note: Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for max_tokens and stop.
+            </summary>
+            <value>1</value>
+        </member>
+        <member name="P:Models.Completion.Stream">
+            <summary>
+            Whether to stream back partial progress. If set, tokens will be sent as data-only server-sent events as they become available, with the stream terminated by a data: [DONE] message.
+            </summary>
+            <value>false</value>
+        </member>
+        <member name="P:Models.Completion.Stop">
+            <summary>
+            Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop sequence.
+            </summary>
+            <typeparam name="string"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:Models.Completion.Max_tokens">
+            <summary>
+            The maximum number of tokens to generate in the completion. The token count of your prompt plus max_tokens cannot exceed the model's context length
+            </summary>
+            <value>16</value>
+        </member>
+        <member name="P:Models.Completion.Presence_penalty">
+            <summary>
+            Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
+            </summary>
+            <value>0 or null</value>
+        </member>
+        <member name="P:Models.Completion.Frequency_penalty">
+            <summary>
+            Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
+            </summary> 
+            <value>0 or null</value>
+        </member>
+        <member name="P:Models.Completion.User">
+            <summary>
+            A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+            </summary>
+            <value>ChatGPTApi</value>
+        </member>
+        <member name="P:Models.Image.Response_format">
+            <summary>
+            Response format
+            </summary>
+            <value>url or b64_json</value>
+        </member>
+        <member name="P:Models.Message.Name">
+            <summary>
+            Name is optional! You don´t need to send it all
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Swagger.CompletionsExample">
+            <summary>
+            Swagger Example
+            </summary>
+        </member>
+        <member name="T:Swagger.ImageExample">
+            <summary>
+            Swagger Example
+            </summary>
         </member>
     </members>
 </doc>

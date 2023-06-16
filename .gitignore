@@ -6,4 +6,8 @@ SignalRCrud/obj
 SignalRCrud/bin
 **/obj/
 **/bin/
+**/appsettings.Development.json
+SignalRCrud/appsettings.Development.json
+
+
 

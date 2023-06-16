@@ -48,7 +48,7 @@ export class ChatGptComponent implements OnInit {
       this.subject.next("Aren't you gonna ask something?");
       return;
     }
-    this.http.post("ChatGPTRestAPI/Completions", {
+    this.http.post("ChatGPT/Completions", {
       messages: [
         {
           role: "user",

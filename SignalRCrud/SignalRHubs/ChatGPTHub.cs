@@ -1,19 +1,17 @@
 using System.Diagnostics;
-using System.Text.Json;
-using ChatGPTApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Models;
 using Newtonsoft.Json;
 
-namespace ChatGPTApi.SignalR;
+namespace Controllers;
 
 /// <summary>
 /// ChatGPTSignalR Hub
 /// </summary>
 public class ChatGPTHub : Hub
 {
-    private readonly ChatGPTRestAPIController controller;
+    private readonly ChatGPTController controller;
     private readonly IHttpClientFactory _factory;
 
     /// <summary>
@@ -22,7 +20,7 @@ public class ChatGPTHub : Hub
     /// <param name="controller"></param>
     /// <param name="factory"></param>
     public ChatGPTHub(
-        ChatGPTRestAPIController controller,
+        ChatGPTController controller,
         IHttpClientFactory factory
         )
     {
@@ -36,12 +34,12 @@ public class ChatGPTHub : Hub
     /// <param name="model"></param>
     /// <param name="max_tokens"></param>
     /// <returns></returns>
-    public async Task SendMessage(string prompt, string model = "gpt-3.5-turbo", int max_tokens=1000)
+    public async Task SendMessage(string prompt, string model = "gpt-3.5-turbo", int max_tokens = 1000)
     {
         if (string.IsNullOrEmpty(prompt)) prompt = "Say something nice";
         var result = await controller.SimpleReply(prompt, model, max_tokens);
         if (result is OkObjectResult okresult)
-        {          
+        {
             await Clients.Caller.SendAsync("ReceiveData", okresult.Value);
         }
         else if (result is BadRequestObjectResult badRequestResult)

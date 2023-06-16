@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../services/signalr.service';
 import { User } from '../models/user';
 import { HttpService } from '../services/http.service';
-import { BehaviorSubject, Observable, Subscribable, Subscription, concat, map, of, scan } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-dynamictable',
@@ -52,7 +52,7 @@ export class DynamictableComponent implements OnInit, AfterViewInit {
   }
 
   fetchData() {
-    this.http.get<User[]>("user").then((users: User[]) => this.data$.next(users));
+    this.http.get<User[]>("api/User").then((users: User[]) => this.data$.next(users));
   }
 
   OnDestroy() {
@@ -65,7 +65,7 @@ export class DynamictableComponent implements OnInit, AfterViewInit {
 
   delete(user: User) {
     console.log("Delete button pressed!");
-    this.http.delete("user", user.id.toString())
+    this.http.delete("api/User", user.id.toString())
   }
 
 }

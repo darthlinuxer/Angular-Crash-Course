@@ -1,7 +1,11 @@
+using System.Net.Http.Headers;
+using System.Reflection;
 using Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Model;
+using Swashbuckle.AspNetCore.Filters;
+using Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +15,7 @@ var env = builder.Environment;
 if (env.IsDevelopment())
 {
     builder.Configuration
-        .AddJsonFile("appsettings.development.json", optional: true, reloadOnChange: true);
+        .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
 }
 
 // Add services to the container.
@@ -33,9 +37,9 @@ builder.Services.AddCors(options =>
     });
     options.AddPolicy("Any", builder =>
     {
-       builder.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        builder.AllowAnyOrigin()
+             .AllowAnyHeader()
+             .AllowAnyMethod();
     });
 });
 
@@ -52,7 +56,6 @@ builder.Services.AddDbContext<UserContext>(options =>
     options.UseInMemoryDatabase("UserDb"));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -83,6 +86,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddSwaggerExamplesFromAssemblyOf<CompletionsExample>();
 builder.Services.AddSwaggerExamplesFromAssemblyOf<ImageExample>();
 builder.Services.AddSignalR();
+builder.Services.AddScoped<ChatGPTController>();
 
 var app = builder.Build();
 
@@ -113,10 +117,10 @@ using (var scope = app.Services.CreateScope())
 
 app.UseCors();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<UserHub>("/userHub");
+app.MapHub<UserHub>("/UserHub");
 app.MapHub<ChatGPTHub>("/ChatGPTHub");
 
 app.Run();

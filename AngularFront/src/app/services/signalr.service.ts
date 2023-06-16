@@ -5,14 +5,14 @@ import * as signalR from '@microsoft/signalr';
   providedIn: 'root',
 })
 export class SignalRService {
-  private apiUrl = 'http://localhost:5182';
+  private apiUrl = 'http://localhost:5185';
   public userHubConn!: signalR.HubConnection;
   public chatgptHubConn!: signalR.HubConnection;
 
   constructor(
   ) {
     this.userHubConn = new signalR.HubConnectionBuilder()
-      .withUrl(this.apiUrl + '/userHub')
+      .withUrl(this.apiUrl + '/UserHub')
       .build();
     
     this.chatgptHubConn = new signalR.HubConnectionBuilder()
