@@ -5,30 +5,84 @@ using Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var configuration = builder.Configuration;
+
+var env = builder.Environment;
+if (env.IsDevelopment())
+{
+    builder.Configuration
+        .AddJsonFile("appsettings.development.json", optional: true, reloadOnChange: true);
+}
+
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+    options.AddPolicy("AngularHttps", builder =>
+    {
+        builder.WithOrigins("https://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+    options.AddPolicy("Any", builder =>
+    {
+       builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+builder.Services.AddHttpClient("defaultGPT", options =>
+{
+    options.BaseAddress = new Uri("https://api.openai.com");
+    var api = configuration.GetValue<string>("OpenAIKey");
+    if (string.IsNullOrEmpty(api)) throw new NullReferenceException("OpenAPIKey cannot be null or empty");
+    options.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", api);
+});
+
 // Add services to the container.
 builder.Services.AddDbContext<UserContext>(options =>
     options.UseInMemoryDatabase("UserDb"));
 
-builder.Services.AddSignalR();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(options =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-    var filePath = Path.Combine(AppContext.BaseDirectory, "SignalRCrud.xml");
-    c.IncludeXmlComments(filePath);
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "API",
+        Description = "Angular Crash Course",
+        Contact = new OpenApiContact
+        {
+            Name = "Camilo Chaves",
+            Url = new Uri("https://linkedin.com/in/camilochaves")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Gnu License",
+            Url = new Uri("https://www.gnu.org/licenses/agpl-3.0.txt")
+        }
+    });
+
+    options.ExampleFilters();
+    // Include XML comments if available
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(builder =>
-   {
-       builder.WithOrigins("http://localhost:4200")
-          .AllowAnyHeader()
-          .AllowAnyMethod()
-          .AllowCredentials();
-   });
-});
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<CompletionsExample>();
+builder.Services.AddSwaggerExamplesFromAssemblyOf<ImageExample>();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -63,5 +117,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<UserHub>("/userHub");
+app.MapHub<ChatGPTHub>("/ChatGPTHub");
 
 app.Run();
