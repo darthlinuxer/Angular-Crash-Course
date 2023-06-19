@@ -1,7 +1,8 @@
 # Angular  
-**docker pull camilochaves/angular:13.3.5**
-steps:
-* Enter the angular folder and type sudo bash start.sh 
+
+**steps:**
+1. Enter the angular folder and type bash start.sh 
 
 # .NET
-On the project folder: dotnet run
+**steps:**
+1. Enter the SignalRCrud folder and type bash start.sh 
