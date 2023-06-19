@@ -28,7 +28,7 @@ public class ChatGPTHub : Hub
         this._factory = factory;
     }
     /// <summary>
-    /// Simple SignalR question example
+    /// Simple SignalR question example without HISTORY
     /// </summary>
     /// <param name="prompt"></param>
     /// <param name="model"></param>
@@ -72,14 +72,35 @@ public class ChatGPTHub : Hub
             while (!streamReader.EndOfStream)
             {
                 var result = await streamReader.ReadLineAsync();
-                if (result == null) continue;
-                if (result.StartsWith("data:") && !result.Contains("DONE"))
-                {
-                    var data = result.Substring(6);
-                    await Clients.Caller.SendAsync("ReceiveStreamedData", data);
-                }
+                if (result == null) continue;        
+                Console.WriteLine("result {0}", result);    
+                await Clients.Caller.SendAsync("ReceiveStreamedData", result);
             }
             Console.WriteLine($"Elapsed:{stopwatch.ElapsedMilliseconds}");
         }
+    }
+
+    /// <summary>
+    /// Send a completion object with history of messages
+    /// </summary>
+    /// <param name="completion"></param>
+    /// <returns></returns> 
+    public async Task SendCompletion(Completion completion)
+    {
+        completion.Stream = false;
+        var result = await controller.Completions(completion);
+        if (result is OkObjectResult okresult)
+        {
+            await Clients.Caller.SendAsync("ReceiveData", okresult.Value);
+        }
+        else if (result is BadRequestObjectResult badRequestResult)
+        {
+            var error = badRequestResult.Value;
+            string jsonError = JsonConvert.SerializeObject(error);
+            Console.WriteLine("Error {0}", jsonError);
+            await Clients.Caller.SendAsync("Error", jsonError);
+        }
+
+
     }
 }

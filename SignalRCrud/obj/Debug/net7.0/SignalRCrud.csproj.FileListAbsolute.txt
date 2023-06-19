@@ -161,3 +161,7 @@ C:/Users/chave/dev/angularcrashcourse/SignalRCrud/obj/Debug/net7.0/SignalRCrud.x
 /home/darthlinuxer/Angular-Crash-Course/SignalRCrud/obj/Debug/net7.0/SignalRCrud.pdb
 /home/darthlinuxer/Angular-Crash-Course/SignalRCrud/obj/Debug/net7.0/SignalRCrud.genruntimeconfig.cache
 /home/darthlinuxer/Angular-Crash-Course/SignalRCrud/obj/Debug/net7.0/ref/SignalRCrud.dll
+/home/bin/Debug/net7.0/Microsoft.Extensions.DependencyModel.dll
+/home/bin/Debug/net7.0/Scrutor.dll
+/home/bin/Debug/net7.0/Swashbuckle.AspNetCore.Filters.dll
+/home/bin/Debug/net7.0/Swashbuckle.AspNetCore.Filters.Abstractions.dll

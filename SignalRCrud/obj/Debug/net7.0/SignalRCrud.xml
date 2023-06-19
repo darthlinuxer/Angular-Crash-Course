@@ -114,7 +114,7 @@
         </member>
         <member name="M:Controllers.ChatGPTHub.SendMessage(System.String,System.String,System.Int32)">
             <summary>
-            Simple SignalR question example
+            Simple SignalR question example without HISTORY
             </summary>
             <param name="prompt"></param>
             <param name="model"></param>
@@ -124,6 +124,13 @@
         <member name="M:Controllers.ChatGPTHub.SendStreamedMessage(Models.Completion)">
             <summary>
             Send a completion object and receive back a stream of data
+            </summary>
+            <param name="completion"></param>
+            <returns></returns> 
+        </member>
+        <member name="M:Controllers.ChatGPTHub.SendCompletion(Models.Completion)">
+            <summary>
+            Send a completion object with history of messages
             </summary>
             <param name="completion"></param>
             <returns></returns> 
