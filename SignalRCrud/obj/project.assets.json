@@ -2905,25 +2905,25 @@
     ]
   },
   "packageFolders": {
-    "/home/darthlinuxer/.nuget/packages/": {}
+    "/root/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/darthlinuxer/Angular-Crash-Course/SignalRCrud/SignalRCrud.csproj",
+      "projectUniqueName": "/home/SignalRCrud.csproj",
       "projectName": "SignalRCrud",
-      "projectPath": "/home/darthlinuxer/Angular-Crash-Course/SignalRCrud/SignalRCrud.csproj",
-      "packagesPath": "/home/darthlinuxer/.nuget/packages/",
-      "outputPath": "/home/darthlinuxer/Angular-Crash-Course/SignalRCrud/obj/",
+      "projectPath": "/home/SignalRCrud.csproj",
+      "packagesPath": "/root/.nuget/packages/",
+      "outputPath": "/home/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/darthlinuxer/.nuget/NuGet/NuGet.Config"
+        "/root/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "/home/darthlinuxer/.dotnet/sdk/8.0.100-preview.4.23260.5/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+        "/usr/share/dotnet/sdk/7.0.304/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2982,7 +2982,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/darthlinuxer/.dotnet/sdk/8.0.100-preview.4.23260.5/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
       }
     }
   }

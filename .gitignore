@@ -4,10 +4,15 @@ AngularFront/node_modules
 node_modules
 SignalRCrud/obj
 SignalRCrud/bin
+SignalRCrud/obj/
+SignalRCrud/bin/
 **/obj/
 **/bin/
+**/obj
+**/bin
 **/appsettings.Development.json
 SignalRCrud/appsettings.Development.json
+
 
 
 
